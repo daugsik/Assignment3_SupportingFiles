@@ -1,1 +1,39 @@
+/*
+	Header for Part 1 of Homework 2.
+	Provides prototypes for Djikstra's Algorithm graph manipulation
+*/
 #pragma once
+#include "NodeData.h"
+#define MAX_NODE_SIZE 256
+#include <fstream>
+
+class GraphM
+{
+public:
+	void buildGraph(ifstream& fromFile);
+	bool insertEdge(const int& from, const int& to, const int& length);
+	bool removeEdge(const int& from, const int& to);
+
+	void display(const int& from, const int& to) const;
+	void displayAll() const;
+	void findShortestPath();
+
+private:
+	int size;
+	bool isDirty = true;		// checks to see if structure was changed before
+								// performing a findShortestPath operation.
+	NodeData data[MAX_NODE_SIZE];
+	unsigned int C[MAX_NODE_SIZE][MAX_NODE_SIZE];
+	
+	struct TableType
+	{
+		bool visited;
+		unsigned int dist;
+		int path;
+	};
+
+	TableType T[MAX_NODE_SIZE][MAX_NODE_SIZE];
+
+	bool edgeExists(const int& from, const int& to) const;
+	bool isNullNode(const string& toCheck) const;
+};
