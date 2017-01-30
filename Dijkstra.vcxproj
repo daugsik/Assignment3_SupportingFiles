@@ -82,6 +82,7 @@
     <Text Include="lab3output.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="GraphL.cpp" />
     <ClCompile Include="GraphM.cpp" />
     <ClCompile Include="Lab3.cpp" />
     <ClCompile Include="NodeData.cpp" />

@@ -4,7 +4,7 @@
 */
 #pragma once
 #include "NodeData.h"
-#define MAX_NODE_SIZE 10
+#define MAX_NODE_SIZE 100
 #include <fstream>
 
 class GraphM
@@ -16,8 +16,8 @@ public:
 	bool insertEdge(const int& from, const int& to, const int& length);
 	bool removeEdge(const int& from, const int& to);
 
-	void display(const int& from, const int& to) const;
-	void displayAll() const;
+	void display(const int& from, const int& to);
+	void displayAll();
 	void findShortestPath();
 
 private:
@@ -39,4 +39,7 @@ private:
 	bool edgeExists(const int& from, const int& to) const;
 	bool isNullNode(const string& toCheck) const;
 	void strToNodeHelper(const string& toConvert);
+	void displayHelper(const int& nodeNumber) const;
+	int shortestCurrentPath(int fromNode);
+	int pathSum(const int& here, const int& destination)
 };

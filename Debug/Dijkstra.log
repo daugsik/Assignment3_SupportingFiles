@@ -1,2 +1,13 @@
-﻿  Dijkstra.vcxproj -> D:\Libraries\Documents\VS2015\Assignment3_SupportingFiles\Debug\Dijkstra.exe
-  Dijkstra.vcxproj -> D:\Libraries\Documents\VS2015\Assignment3_SupportingFiles\Debug\Dijkstra.pdb (Full PDB)
+﻿  Lab3.cpp
+  GraphM.cpp
+d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(190): error C2131: expression did not evaluate to a constant
+  d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(190): note: failure was caused by non-constant arguments or reference to a non-constant symbol
+  d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(190): note: see usage of 'this'
+d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(192): error C2131: expression did not evaluate to a constant
+  d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(192): note: failure was caused by non-constant arguments or reference to a non-constant symbol
+  d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(192): note: see usage of 'this'
+d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(194): error C2131: expression did not evaluate to a constant
+  d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(194): note: failure was caused by non-constant arguments or reference to a non-constant symbol
+  d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(194): note: see usage of 'this'
+d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(196): error C2065: 'j': undeclared identifier
+  Generating Code...

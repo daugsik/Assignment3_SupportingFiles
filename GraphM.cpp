@@ -97,7 +97,7 @@ bool GraphM::isNullNode(const string& toCheck) const
 	//Helper function to determine if the edge exists.
 bool GraphM::edgeExists(const int& from, const int& to) const
 {
-	return (C[from-1][to-1] != UINT_MAX);
+	return (C[from][to] != UINT_MAX);
 }
 
 /*
@@ -132,9 +132,14 @@ bool GraphM::removeEdge(const int& from, const int& to)
 	return exists;
 };
 
-void GraphM::display(const int& from, const int& to) const
+void GraphM::display(const int& from, const int& to)
 {
+	if (isDirty)
+	{
+		findShortestPath();
+	}
 
+	cout << from << " " << to << endl;
 };
 
 /*
@@ -142,10 +147,33 @@ void GraphM::display(const int& from, const int& to) const
 	Prints node trajectories from _ to _, along with the shortest distance as calculated
 	by Djikstra's algorithm, and the path the shortest distance represents.
 */
-void GraphM::displayAll() const
+void GraphM::displayAll()
 {
+	if (isDirty)
+	{
+		findShortestPath();
+	}
 
+	cout << "Description\t\t\tFrom Node \tToNode \t\tDijkstra's \t\t Path" << endl;
+	
+	for (int i = 0; i < size; i++)
+	{
+		displayHelper(i);
+	}
 };
+
+void GraphM::displayHelper(const int& nodeNumber) const
+{
+	// print name of node
+	cout << data[nodeNumber] << endl;
+
+	// print all outgoing node connections
+	for (int i = 0; i < size; i++)
+	{
+		if (i == nodeNumber) { continue; };
+		cout << "\t\t\t\t" << nodeNumber+1 << "\t\t" << i+1 << "\t\t" << "----" << endl;
+	}
+}
 
 /*
 	Updates T multi-array with current values after all insert/remove edge operations
@@ -154,6 +182,50 @@ void GraphM::displayAll() const
 */
 void GraphM::findShortestPath()
 {
+	// iterate through every node and perform Dijkstra's algorithm to find shortest
+	// paths to each.
+	for (int i = 0; i < size; i++)
+	{
+		
+		if (true)
+		{
+			T[][]
+		}
+	}
+
 
 	isDirty = false;
 };
+
+int GraphM::pathSum(const int& here, const int& destination)
+{
+	if (here == destination)
+	{
+		return 0;
+	}
+
+	int toGo = shortestCurrentPath(here);
+
+	if 
+
+}
+
+/* 
+	Returns shortest path to nonvisited node and records minimum distances in table
+	T. Also records visited nodes.
+*/
+int GraphM::shortestCurrentPath(int fromNode)
+{
+	int min = UINT_MAX;
+	int toGo = UINT_MAX;
+
+	for (int v = 0; v < size; v++)
+	{
+		if (C[fromNode][v] <= min && !T[fromNode][v].visited)
+		{
+			min = C[fromNode][v];
+			toGo = v;
+		}
+	}
+	return toGo;
+}
