@@ -4,12 +4,14 @@
 */
 #pragma once
 #include "NodeData.h"
-#define MAX_NODE_SIZE 256
+#define MAX_NODE_SIZE 10
 #include <fstream>
 
 class GraphM
 {
 public:
+	GraphM();
+	~GraphM();
 	void buildGraph(ifstream& fromFile);
 	bool insertEdge(const int& from, const int& to, const int& length);
 	bool removeEdge(const int& from, const int& to);
@@ -20,7 +22,7 @@ public:
 
 private:
 	int size;
-	bool isDirty = true;		// checks to see if structure was changed before
+	bool isDirty;		// checks to see if structure was changed before
 								// performing a findShortestPath operation.
 	NodeData data[MAX_NODE_SIZE];
 	unsigned int C[MAX_NODE_SIZE][MAX_NODE_SIZE];
@@ -36,4 +38,5 @@ private:
 
 	bool edgeExists(const int& from, const int& to) const;
 	bool isNullNode(const string& toCheck) const;
+	void strToNodeHelper(const string& toConvert);
 };

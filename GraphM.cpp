@@ -3,9 +3,11 @@
 GraphM::GraphM(void)
 {
 	size = 0;
-	for (int i = 1; i < sizeof(data); i++)
+	isDirty = true;
+	int temp = sizeof(data) / sizeof(*data);
+	for (int i = 0; i < temp; i++)
 	{
-		for (int j = 1; j < sizeof(data); j++)
+		for (int j = 0; j < temp; j++)
 		{
 			T[i][j].dist = UINT_MAX;
 			T[i][j].path = 0;
@@ -23,34 +25,79 @@ GraphM::~GraphM(void)
 
 void GraphM::buildGraph(ifstream& fromFile)
 {
-	size = fromFile.get();
+	string temp = "";
+	getline(fromFile, temp);
 
-	for (int i = 1; i <= size; i++)
+	if (temp == "")
+	{
+		return;
+	}
+
+	size = stoi(temp);
+
+	//assumes there are exactly _size_ nodes for name data.
+	for (int i = 0; i < size; i++)
 	{
 		data[i].setData(fromFile);
 	}
 
-	string holder = "";
-
-	while (holder = fromFile.getLine())
+	//assumes that the line begins with numbers and the line only ever contains
+	//numeric characters or a space
+	while (getline(fromFile, temp))
 	{
-
+		if (isNullNode(temp))
+		{
+			return;
+		}
+		strToNodeHelper(temp);
 	}
-
+	
+	return;
 };
 
 /*
+	Assumes every line passed in is only composed of 3 different "words" made 
+	of numbers, each separated by at least 1 space.
+*/
+void GraphM::strToNodeHelper(const string& toConvert)
+{
+	int from, to, length, index, index2 = 0;
+
+	// finds position of first space and second space.
+	index = toConvert.find(' ');
+	index2 = toConvert.find_last_of(' ');
+
+	// cast substrings as integers
+	from = stoi(toConvert.substr(0, index));
+	to = stoi(toConvert.substr(index + 1, index2 - index - 1));
+	length = stoi(toConvert.substr(index2 + 1));
+
+
+	// inserts edge. If edge exists, overwrite old and cout error message.
+	if (insertEdge(from, to, length)) 
+	{ 
+		cout << "Overwriting edge " << from << "-" << to << endl; 
+	}
+}
+
+/*
 	If the line contains a "null terminating node" or "0 0 0" value, return true to
-	break to next step.
+	break to next step. Assuming that input is formatted in such a way that 0 is
+	only present at position '0' as a terminating "node"
 */
 bool GraphM::isNullNode(const string& toCheck) const
 {
-	return true;
+	if (toCheck.at(0) == '0')
+	{
+		return true;
+	}
+	return false;
 }
 
+	//Helper function to determine if the edge exists.
 bool GraphM::edgeExists(const int& from, const int& to) const
 {
-	return (C[from][to] != UINT_MAX);
+	return (C[from-1][to-1] != UINT_MAX);
 }
 
 /*
@@ -63,8 +110,8 @@ bool GraphM::edgeExists(const int& from, const int& to) const
 */
 bool GraphM::insertEdge(const int& from, const int& to, const int& length)
 {
-	bool exists = edgeExists(from, to);
-	C[from][to] = length;
+	bool exists = edgeExists(from-1, to-1);
+	C[from-1][to-1] = length;
 	isDirty = true;
 	return exists;
 };
@@ -79,8 +126,8 @@ bool GraphM::insertEdge(const int& from, const int& to, const int& length)
 */
 bool GraphM::removeEdge(const int& from, const int& to)
 {
-	bool exists = edgeExists(from, to);
-	C[from][to] = UINT_MAX;
+	bool exists = edgeExists(from-1, to-1);
+	C[from-1][to-1] = UINT_MAX;
 	isDirty = true;
 	return exists;
 };
