@@ -150,11 +150,19 @@ bool GraphM::edgeExists(const int& from, const int& to) const
 	return (C[from][to] != UINT_MAX);
 }
 
+
+
+
+
 //*************************************************************************************
 // DISPLAY AND DISPLAY HELPER FUNCTIONS
 
 
-
+/*
+	Displays the most length of the optimal path from _from_ to _to_,
+	and also the names of the nodes that must be taken, if the path exists.
+	If no path exists, returns a number of dashes.
+*/
 void GraphM::display(const int& from, const int& to)
 {
 	int f = from - 1;
@@ -162,7 +170,7 @@ void GraphM::display(const int& from, const int& to)
 	int index = 0;
 
 	// Worst case scenario where best path requires all nodes, and sets to inf.
-	int stack[MAX_NODE_SIZE] = { UINT_MAX };
+	unsigned int stack[MAX_NODE_SIZE] = { UINT_MAX };
 	
 	
 	if (isDirty)
