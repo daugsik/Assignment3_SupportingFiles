@@ -1,5 +1,5 @@
 #include "GraphM.h"
-#include <limits>
+#include <climits>
 
 GraphM::GraphM()
 {
