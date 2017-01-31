@@ -1,4 +1,4 @@
-#include "nodedata.h"
+#include "NodeData.h"
 
 //------------------- constructors/destructor  -------------------------------
 NodeData::NodeData() { data = ""; }                         // default

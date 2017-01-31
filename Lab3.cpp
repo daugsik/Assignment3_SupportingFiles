@@ -14,8 +14,8 @@
 
 #include <iostream>
 #include <fstream>
-#include "graphl.h"
-#include "graphm.h"
+#include "GraphL.h"
+#include "GraphM.h"
 using namespace std;
 
 int main() {
@@ -40,8 +40,9 @@ int main() {
 		G.display(1, 4);
 	}
 	
-	/*
+
 	// part 2 
+	/*
 	ifstream infile2("data32.txt");
 	if (!infile2) {
 		cout << "File could not be opened." << endl;
@@ -61,7 +62,6 @@ int main() {
 	cout << endl;
 
 	*/
-
 
 	return 0;
 }
