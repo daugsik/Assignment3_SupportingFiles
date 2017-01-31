@@ -1,5 +1,5 @@
 ﻿  GraphM.cpp
-d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(242): warning C4018: '>=': signed/unsigned mismatch
-d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(260): warning C4018: '<=': signed/unsigned mismatch
+d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(165): warning C4838: conversion from 'unsigned int' to 'int' requires a narrowing conversion
+d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(347): warning C4018: '>=': signed/unsigned mismatch
   Dijkstra.vcxproj -> D:\Libraries\Documents\VS2015\Assignment3_SupportingFiles\Debug\Dijkstra.exe
   Dijkstra.vcxproj -> D:\Libraries\Documents\VS2015\Assignment3_SupportingFiles\Debug\Dijkstra.pdb (Full PDB)

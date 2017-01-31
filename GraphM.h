@@ -4,7 +4,7 @@
 */
 #pragma once
 #include "NodeData.h"
-#define MAX_NODE_SIZE 5
+#define MAX_NODE_SIZE 100
 #include <fstream>
 
 class GraphM
@@ -40,7 +40,7 @@ private:
 	bool isNullNode(const string& toCheck) const;
 	void strToNodeHelper(const string& toConvert);
 	void displayHelper(const int& nodeNumber) const;
-	int shortestCurrentPath(int fromNode);
 	void updateTCell(const int& source, const int& destination, const int& prev, const int& dist);
 	void graphTraversal(const int& source, const int& here, const int& prev, const int& dist);
+	void pathPrint(const int& nodeNumber, const int& i) const;
 };
