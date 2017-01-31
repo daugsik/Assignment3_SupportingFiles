@@ -4,7 +4,7 @@
 */
 #pragma once
 #include "NodeData.h"
-#define MAX_NODE_SIZE 100
+#define MAX_NODE_SIZE 5
 #include <fstream>
 
 class GraphM
@@ -23,10 +23,10 @@ public:
 private:
 	int size;
 	bool isDirty;		// checks to see if structure was changed before
-								// performing a findShortestPath operation.
+						// performing a findShortestPath operation.
 	NodeData data[MAX_NODE_SIZE];
 	unsigned int C[MAX_NODE_SIZE][MAX_NODE_SIZE];
-	
+
 	struct TableType
 	{
 		bool visited;
@@ -41,5 +41,6 @@ private:
 	void strToNodeHelper(const string& toConvert);
 	void displayHelper(const int& nodeNumber) const;
 	int shortestCurrentPath(int fromNode);
-	int pathSum(const int& here, const int& destination)
+	void updateTCell(const int& source, const int& destination, const int& prev, const int& dist);
+	void graphTraversal(const int& source, const int& here, const int& prev, const int& dist);
 };

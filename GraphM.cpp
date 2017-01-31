@@ -7,13 +7,15 @@ GraphM::GraphM(void)
 	int temp = sizeof(data) / sizeof(*data);
 	for (int i = 0; i < temp; i++)
 	{
+
 		for (int j = 0; j < temp; j++)
 		{
 			T[i][j].dist = UINT_MAX;
-			T[i][j].path = 0;
+			T[i][j].path = UINT_MAX;
 			T[i][j].visited = false;
 
 			C[i][j] = UINT_MAX;
+
 		}
 	}
 }
@@ -154,7 +156,7 @@ void GraphM::displayAll()
 		findShortestPath();
 	}
 
-	cout << "Description\t\t\tFrom Node \tToNode \t\tDijkstra's \t\t Path" << endl;
+	cout << "Description\t\t\tFrom Node \tToNode \t\tDijkstra's \t Path" << endl;
 	
 	for (int i = 0; i < size; i++)
 	{
@@ -171,7 +173,18 @@ void GraphM::displayHelper(const int& nodeNumber) const
 	for (int i = 0; i < size; i++)
 	{
 		if (i == nodeNumber) { continue; };
-		cout << "\t\t\t\t" << nodeNumber+1 << "\t\t" << i+1 << "\t\t" << "----" << endl;
+		cout << "\t\t\t\t" << nodeNumber + 1 << "\t\t" << i + 1 << "\t\t";
+		if (T[nodeNumber][i].dist != UINT_MAX)
+		{
+			cout << T[nodeNumber][i].dist << "\t\t" << nodeNumber + 1;
+
+			cout << endl;
+
+		}
+		else
+		{
+			cout << "---" << endl;
+		}
 	}
 }
 
@@ -180,34 +193,57 @@ void GraphM::displayHelper(const int& nodeNumber) const
 	have been performed. When completed, the T table is up to date and the isDirty
 	boolean is switched to false to reflect its accuracy.
 */
+
+
+
+
+
+
+
+
+
+
+
+
+
 void GraphM::findShortestPath()
 {
 	// iterate through every node and perform Dijkstra's algorithm to find shortest
 	// paths to each.
 	for (int i = 0; i < size; i++)
 	{
-		
-		if (true)
-		{
-			T[][]
-		}
+		graphTraversal(i, i, INT_MAX, 0);
 	}
-
 
 	isDirty = false;
 };
 
-int GraphM::pathSum(const int& here, const int& destination)
+void GraphM::graphTraversal(const int& source, const int& here, const int& prev, const int& dist)
 {
-	if (here == destination)
+	updateTCell(source, here, prev, dist);
+	for (int i = 0; i < size; i++)
 	{
-		return 0;
+		if (C[here][i] != UINT_MAX && !T[source][here].visited)
+		{
+			int cumDist = dist + C[here][i];
+			T[source][here].visited = true;
+			graphTraversal(source, i, here, cumDist);
+			T[source][here].visited = false;
+		}
 	}
+}
 
-	int toGo = shortestCurrentPath(here);
-
-	if 
-
+/*
+	updates a given cell with the smallest distance taken in from outside and the node that 
+	immediately	preceded it
+*/
+void GraphM::updateTCell(const int& source, const int& here, const int& prev, const int& dist)
+{
+	if (T[source][here].dist >= dist && source != here)
+	{
+		T[source][here].dist = dist;
+		T[source][here].path = prev;
+	}
 }
 
 /* 
