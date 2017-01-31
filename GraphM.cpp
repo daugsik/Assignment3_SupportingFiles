@@ -1,6 +1,7 @@
 #include "GraphM.h"
+#include <limits>
 
-GraphM::GraphM(void)
+GraphM::GraphM()
 {
 	size = 0;
 	isDirty = true;
@@ -22,7 +23,7 @@ GraphM::GraphM(void)
 }
 
 //No 
-GraphM::~GraphM(void)
+GraphM::~GraphM()
 {
 
 }
