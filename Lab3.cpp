@@ -42,13 +42,13 @@ int main() {
 	
 
 	// part 2 
-	/*
 	ifstream infile2("data32.txt");
 	if (!infile2) {
 		cout << "File could not be opened." << endl;
 		return 1;
 	}
 
+	/*
 	//for each graph, find the depth-first search ordering
 	for (;;) {
 		GraphL G;
@@ -60,7 +60,6 @@ int main() {
 	}
 	
 	cout << endl;
-
 	*/
 
 	return 0;

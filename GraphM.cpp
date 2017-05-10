@@ -253,10 +253,16 @@ void GraphM::displayHelper(const int& nodeNumber) const
 	// print all outgoing node connections
 	for (int i = 0; i < size; i++)
 	{
+		// passes over current iteration if nodeNumber and destination are the same
 		if (i == nodeNumber) { continue; };
+
+		// begin printing path line
 		cout << "\t\t\t\t" << nodeNumber + 1 << "\t\t" << i + 1 << "\t\t";
+
+		// if the path from nodeNumber to i is not "undefined"
 		if (T[nodeNumber][i].dist != UINT_MAX)
 		{
+			// print the distance between nodes and the source nodeNumber.
 			cout << T[nodeNumber][i].dist << "\t\t" << nodeNumber + 1;
 
 			//index value to traverse T forward and backward.
@@ -272,6 +278,7 @@ void GraphM::displayHelper(const int& nodeNumber) const
 
 			cout << " " << i + 1 << endl;
 		}
+		// otherwise, print a line to indicate no path
 		else
 		{
 			cout << "---" << endl;
