@@ -5,8 +5,7 @@
 */
 
 #include "NodeData.h"
-#include <fstream>
-#define MAXNODES 100
+#define MAXNODES 10
 
 class GraphL
 {
@@ -19,9 +18,7 @@ public:
 	void depthFirstSearch();
 
 private:
-	int size;
 	struct EdgeNode;
-
 	struct GraphNode 
 	{
 		EdgeNode* edgeHead;
@@ -29,11 +26,18 @@ private:
 		bool visited;
 	};
 
-	GraphNode G[MAXNODES];
-
 	struct EdgeNode
 	{
 		int adjGraphNode;
 		EdgeNode* nextEdge;
 	};
+
+	int size;
+	GraphNode G[MAXNODES];
+
+	bool insertGNode(const int&, const string&);
+	void insertENode(GraphNode, const int &);
+	void unvisit();
+	void printEdges(const int Gindex) const;
+	void delAdjList(GraphNode);
 };

@@ -266,14 +266,14 @@ void GraphM::displayHelper(const int& nodeNumber) const
 			cout << T[nodeNumber][i].dist << "\t\t" << nodeNumber + 1;
 
 			//index value to traverse T forward and backward.
-			int temp = nodeNumber;
+			int temp = i;
 
 			// direct pointing is designated with UINT_MAX so only
 			// source and destination are printed.
-			while (T[temp][i].path != UINT_MAX)
+			while (T[nodeNumber][temp].path != UINT_MAX)
 			{
-				cout << " " << T[temp][i].path + 1;
-				temp = T[temp][i].path;
+				cout << " " << T[nodeNumber][temp].path + 1;
+				temp = T[nodeNumber][temp].path;
 			}
 
 			cout << " " << i + 1 << endl;
