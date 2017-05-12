@@ -36,8 +36,9 @@ private:
 	GraphNode G[MAXNODES];
 
 	bool insertGNode(const int&, const string&);
-	void insertENode(GraphNode, const int &);
+	void insertENode(GraphNode&, const int &);
 	void unvisit();
-	void printEdges(const int Gindex) const;
+	void printEdges(const int&) const;
 	void delAdjList(GraphNode);
+	void dfsHelper(const int&);
 };

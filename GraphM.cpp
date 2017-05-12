@@ -284,6 +284,8 @@ void GraphM::displayHelper(const int& nodeNumber) const
 			cout << "---" << endl;
 		}
 	}
+
+	cout << endl << endl << endl;
 }
 
 

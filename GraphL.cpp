@@ -68,7 +68,7 @@ void GraphL::buildGraph(ifstream& infile)
 		int fromNode = stoi(temp.substr(0, spacePos));
 		int toNode = stoi(temp.substr(spacePos));
 
-		insertENode(G[fromNode], toNode);
+		insertENode(G[fromNode-1], toNode-1);
 	}
 
 	return;
@@ -106,7 +106,7 @@ Preconditions:
 Postconditions:
 
 */
-void GraphL::insertENode(GraphNode recipient, const int &toNode)
+void GraphL::insertENode(GraphNode& recipient, const int &toNode)
 {
 	EdgeNode* temp = new EdgeNode;
 	temp->adjGraphNode = toNode;
@@ -183,7 +183,7 @@ Preconditions:
 Postconditions:
 
 */
-void GraphL::printEdges(const int Gindex) const
+void GraphL::printEdges(const int& Gindex) const
 {
 	EdgeNode* index = G[Gindex].edgeHead;
 	if (index == NULL)
@@ -192,12 +192,50 @@ void GraphL::printEdges(const int Gindex) const
 	}
 	while (index != NULL)
 	{
-		cout << " \tedge " << Gindex << " " << index->adjGraphNode << endl;
+		cout << " \tedge " << Gindex+1 << " " << index->adjGraphNode+1 << endl;
+		index = index->nextEdge;
 	}
 }
 
+/* depthFirstSearch
+Public access function to print out the Depth First Search output. Calls helper
+function to perform search recursively, then calls unvisit() to reset visited
+booleans of graphNodes.
 
+Does not assume all nodes are connected, and will thus iterate through the
+array until "size" cells in.
+*/
 void GraphL::depthFirstSearch()
 {
+	cout << "Depth-first ordering: ";
+	for (int i = 0; i < size; i++)
+	{
+		dfsHelper(i);
+	}
+	cout << endl;
+	unvisit();
+}
+
+/* dfsHelper
+Recursive function that traverses the graph as if it were a tree and prints
+node numbers in preorder. If the node is already visited, returns out of the
+function and prints nothing/does not traverse that nodes subtree.
+*/
+void GraphL::dfsHelper(const int& gIndex)
+{
+	if (G[gIndex].visited == true)
+	{
+		return;
+	}
+
+	cout << gIndex + 1 << " ";
+	G[gIndex].visited = true;
+
+	EdgeNode* temp = G[gIndex].edgeHead;
+	while (temp != NULL)
+	{
+		dfsHelper(temp->adjGraphNode);
+		temp = temp->nextEdge;
+	}
 
 }

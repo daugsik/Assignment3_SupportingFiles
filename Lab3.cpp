@@ -42,7 +42,7 @@ int main() {
 	
 
 	// part 2 
-	/*
+	
 	ifstream infile2("data32.txt");
 	if (!infile2) {
 		cout << "File could not be opened." << endl;
@@ -61,7 +61,7 @@ int main() {
 	
 	cout << endl;
 
-	*/
+	
 
 	return 0;
 }
