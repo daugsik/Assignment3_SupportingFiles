@@ -1,4 +1,7 @@
-﻿  GraphM.cpp
-d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(366): warning C4018: '>=': signed/unsigned mismatch
+﻿  Lab3.cpp
+  GraphM.cpp
+d:\libraries\documents\vs2015\assignment3_supportingfiles\graphm.cpp(424): warning C4018: '>=': signed/unsigned mismatch
+  GraphL.cpp
+  Generating Code...
   Dijkstra.vcxproj -> D:\Libraries\Documents\VS2015\Assignment3_SupportingFiles\Debug\Dijkstra.exe
   Dijkstra.vcxproj -> D:\Libraries\Documents\VS2015\Assignment3_SupportingFiles\Debug\Dijkstra.pdb (Full PDB)

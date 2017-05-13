@@ -80,6 +80,7 @@
     <Text Include="data32.txt" />
     <Text Include="dataUWB.txt" />
     <Text Include="lab3output.txt" />
+    <Text Include="output.txt" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GraphL.cpp" />

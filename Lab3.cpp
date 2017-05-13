@@ -1,15 +1,8 @@
 //---------------------------------------------------------------------------
-// lab3.cpp
+// HW3 Driver
 //---------------------------------------------------------------------------
 // This code tests the basic functionality of the classes to perform
-// Dijkstra's algorihms and depth-first search for CSS 343 Lab 3.
-// It is not meant to exhaustively test the class. 
-//
-// Assumptions:
-//   -- students can follow the directions to interface with this file
-//   -- text files "data31.txt" and "data32.txt" are formatted as described 
-//   -- Data file data3uwb provides an additional data set for part 1;
-//      it must be edited, as it starts with a description how to use it
+// Dijkstra's algorihms and depth-first search.
 //---------------------------------------------------------------------------
 
 #include <iostream>

@@ -5,7 +5,7 @@
 */
 
 #include "NodeData.h"
-#define MAXNODES 10
+#define MAXNODES 100
 
 class GraphL
 {

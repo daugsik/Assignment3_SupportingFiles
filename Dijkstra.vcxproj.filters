@@ -27,6 +27,9 @@
     <Text Include="lab3output.txt">
       <Filter>Source Files</Filter>
     </Text>
+    <Text Include="output.txt">
+      <Filter>Source Files</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="NodeData.cpp">

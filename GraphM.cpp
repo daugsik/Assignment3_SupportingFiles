@@ -1,3 +1,19 @@
+/*---------------GraphM.cpp
+Dongkyu Daniel Kim, CSS343A
+Creation: May 9th, 2017
+Last Accessed: May 12th, 2017
+
+Purpose:
+Implements a graph structure that is best suited to perform
+Djikstra's Algorithm on. Functions include:
+	- buildGraph(fromFile) Graph Building
+	- insertEdge(from, to) Public Insertion of Edges
+	- removeEdge(from, to) Public Removal of Edges
+	- display(from, to) of optimal paths between two specific nodes
+	- displayAll(): optimal paths for all nodes
+	- findShortestPath(): Calculating shortest paths
+
+--------------------------*/
 #include "GraphM.h"
 #include <climits>
 
@@ -22,7 +38,7 @@ GraphM::GraphM()
 	}
 }
 
-//No 
+// no use of pointers, so no need to implement
 GraphM::~GraphM()
 {
 
@@ -31,12 +47,18 @@ GraphM::~GraphM()
 //**************************************************************************
 // SETUP FUNCTIONS
 
-/*
+/*buildGraph
 	Builds a graph according to instructions found at the beginning of
 	each Graph section (ended by 0 0 0 as a "null node" line) in a txt file.
 
 	Begins by setting Graph size, then setting data array values to the # names
 	found in the text file, then begins adding edges.
+
+	Preconditions:
+		-fromFile is a valid ifstream
+		-Assumes properly formatted textfile to read from
+	Postconditions:
+		-Filled C array representing edge lengths between [source][destination]
 */
 void GraphM::buildGraph(ifstream& fromFile)
 {
@@ -70,9 +92,13 @@ void GraphM::buildGraph(ifstream& fromFile)
 	return;
 };
 
-/*
+/* strToNodeHelper
 	Assumes every line passed in is only composed of 3 different "words" made 
 	of numbers, each separated by at least 1 space.
+	Preconditions:
+		-Properly formatted string representing a Node
+	Postconditions:
+		-Newly created edge inserted into the proper cell. 
 */
 void GraphM::strToNodeHelper(const string& toConvert)
 {
@@ -95,13 +121,19 @@ void GraphM::strToNodeHelper(const string& toConvert)
 	}
 }
 
-/*
+/* insertEdge
 	Inserts a directed edge that points _from_ to _to_ with a magnitude of _length_.
 	If an existing edge already exists, the old edge is replaced with the new, and
 	the function returns true. If there is no existing edge, returns false.
 
 	Because this operation can be one in many, sets isDirty boolean to true when executed,
 	and	findShortestPath is only performed at the end of any given sequence of remove edge.
+
+	Preconditions:
+		-receives decoded string from strToNodeHelper
+	Postconditions:
+		-inserts edge to appropriate cell. Returns true if old edge exists and is overwritten,
+			else false.
 */
 bool GraphM::insertEdge(const int& from, const int& to, const int& length)
 {
@@ -111,13 +143,17 @@ bool GraphM::insertEdge(const int& from, const int& to, const int& length)
 	return exists;
 };
 
-/*
+/* removeEdge
 	Removes a preexisting edge that points from node _from_ to node _to_ by setting
 	the distance variable to 'infinity' (i.e. max uint). Because this operation can
 	be one in many, sets isDirty boolean to true when executed, and findShortestPath
 	is only performed at the end of any given sequence of remove edge.
-	Returns true if an edge is found and is successfully removed.
-	Returns false if no edge exists to be removed.
+
+	Preconditions:
+		-None
+	Postconditions:
+		-Returns true if an edge is found and is successfully removed.
+		-Returns false if no edge exists to be removed.
 */
 bool GraphM::removeEdge(const int& from, const int& to)
 {
@@ -131,10 +167,16 @@ bool GraphM::removeEdge(const int& from, const int& to)
 //**************************************************************************************
 // CHECK FUNCTIONS
 
-/*
+/* isNullNode
 	If the line contains a "null terminating node" or "0 0 0" value, return true to
 	break to next step. Assuming that input is formatted in such a way that 0 is
 	only present at position '0' as a terminating "node"
+
+	Preconditions:
+		None.
+	Postconditions:
+		If the string toCheck has '0' as the first character, returns true.
+		Else, returnse false.
 */
 bool GraphM::isNullNode(const string& toCheck) const
 {
@@ -145,7 +187,13 @@ bool GraphM::isNullNode(const string& toCheck) const
 	return false;
 }
 
-	//Helper function to determine if the edge exists.
+/* edgeExists
+	Helper function to determine if the edge exists.
+Preconditions:
+	-from and to are both within the bounds of the class's MAX_NODE_SIZE.
+Postconditions:
+	-returns true if the value at the cell being checked is anything but UINT_MAX.
+*/
 bool GraphM::edgeExists(const int& from, const int& to) const
 {
 	return (C[from][to] != UINT_MAX);
@@ -153,16 +201,21 @@ bool GraphM::edgeExists(const int& from, const int& to) const
 
 
 
-
-
 //*************************************************************************************
 // DISPLAY AND DISPLAY HELPER FUNCTIONS
 
 
-/*
-	Displays the most length of the optimal path from _from_ to _to_,
+/* display
+	Displays the length of the optimal path from _from_ to _to_,
 	and also the names of the nodes that must be taken, if the path exists.
 	If no path exists, returns a number of dashes.
+	Checks to see if the table has been added without recalculating edges.
+	If true, performs findShortestPath() to update T's information.
+
+	Preconditions:
+		-from and to are both within the range 0-MAX_NODE_SIZE
+	Postconditions:
+		-Optimized T table and the optimal path printed to console.
 */
 void GraphM::display(const int& from, const int& to)
 {
@@ -216,12 +269,17 @@ void GraphM::display(const int& from, const int& to)
 	}
 };
 
-/*
+/* displayAll
 	Prints node trajectories from _ to _, along with the shortest distance as calculated
 	by Djikstra's algorithm, and the path the shortest distance represents.
 
 	Though there may be paths with significantly fewer node traversals but equivalent
 	distance, we will assume that differentiating between them is unnecessary
+
+	Preconditions:
+		-None
+	Postconditions:
+		-display for optimized paths between all nodes.
 */
 void GraphM::displayAll()
 {
@@ -241,9 +299,14 @@ void GraphM::displayAll()
 	}
 };
 
-/*
+/* displayHelper
 	Performs grunt work for displayAll. Increments node values by 1 to conform to
 	node naming standards in output.
+
+	Preconditions:
+		-nodeNumber exists within the range of 0-MAX_NODE_SIZE
+	Postconditions:
+		-Prints all paths from a nodeNumber's node to all other nodes.
 */
 void GraphM::displayHelper(const int& nodeNumber) const
 {
@@ -288,33 +351,17 @@ void GraphM::displayHelper(const int& nodeNumber) const
 	cout << endl << endl << endl;
 }
 
-
-/*
-void GraphM::pathPrint(const int& nodeNumber, const int& i)
-{
-	cout << T[nodeNumber][i].dist << "\t\t" << nodeNumber + 1;
-
-	//index value to traverse T forward and backward.
-	int temp = i;
-
-	// direct pointing is designated with UINT_MAX so only
-	// source and destination are printed.
-	while (T[nodeNumber][temp].path != UINT_MAX)
-	{
-		cout << " " << T[nodeNumber][temp].path + 1;
-		temp = T[nodeNumber][temp].path;
-	}
-
-	cout << " " << i + 1 << endl;
-}
-*/
-
-/*
+/* findShortestPath
 	Updates T multi-array with current values after all insert/remove edge operations
 	have been performed. When completed, the T table is up to date and the isDirty
 	boolean is switched to false to reflect its accuracy.
 
 	Calls the recursive function graphTraversal to actually designate values.
+
+	Preconditions:
+		-Edges exist in C[] that have not been taken into account in T[][]
+	Postconditions:
+		-Optimized distances and paths in T[][]
 */
 void GraphM::findShortestPath()
 {
@@ -328,11 +375,16 @@ void GraphM::findShortestPath()
 	isDirty = false;
 };
 
-/*
+/* graphTraversal
 	Recursive function that treats the graph like a tree. Makes use of the T[][].visited
 	boolean to implement a crude Stack structure.
 	Calls updateTCell to check if the current distance is the most optimal pathway to
 	"here" from "source"
+
+	Preconditions:
+		-None
+	Postconditions:
+		-Optimized T[][] pathways and distances
 */
 void GraphM::graphTraversal(const int& source, const int& here, const int& prev, const int& dist)
 {
@@ -351,7 +403,7 @@ void GraphM::graphTraversal(const int& source, const int& here, const int& prev,
 	}
 }
 
-/*
+/* updateTCell
 	Performs a check to see if an incoming pathway is the most optimal means of getting
 	from "source" to "here".
 
@@ -360,6 +412,12 @@ void GraphM::graphTraversal(const int& source, const int& here, const int& prev,
 
 	If the there is no pathway (i.e. one degree of separation) UINT_MAX is set in T[][].path
 	otherwise, points to the next cell in path sequence.
+
+	Preconditions:
+		-Values source, here, and prev are all within the range 0-MAX_NODE_SIZE
+	Postconditions:
+		-Updates a single cell T[source][here] to reflect the shortest path from source to here.
+		-If source and here are the same, sets path to UINT_MAX to reflect no direction.
 */
 void GraphM::updateTCell(const int& source, const int& here, const int& prev, const int& dist)
 {
